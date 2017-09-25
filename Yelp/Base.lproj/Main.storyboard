@@ -164,6 +164,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1d8-qu-3h7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="0.90420579663212441" green="0.90420579663212441" blue="0.90420579663212441" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterViewCell" rowHeight="136" id="AFS-x3-tc4" customClass="FilterViewCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="136"/>
@@ -184,12 +185,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k7p-tU-fRs">
-                                                    <rect key="frame" x="308" y="18" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="switchValueChanged:" destination="AFS-x3-tc4" eventType="valueChanged" id="wRv-Jk-vmC"/>
-                                                    </connections>
-                                                </switch>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Jzd-OT-fat">
                                                     <rect key="frame" x="315" y="10" width="40" height="40"/>
                                                     <gestureRecognizers/>
@@ -198,21 +193,28 @@
                                                         <constraint firstAttribute="width" constant="40" id="nCF-nG-fw3"/>
                                                     </constraints>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czg-wh-qJr">
+                                                    <rect key="frame" x="307" y="18" width="70" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="2uC-Ye-YPM"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Udc-Wt-wUR"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="czg-wh-qJr" firstAttribute="trailing" secondItem="rR4-dJ-vaa" secondAttribute="trailingMargin" constant="10" id="5xc-pc-dmW"/>
                                                 <constraint firstItem="vEj-mc-09i" firstAttribute="centerY" secondItem="rR4-dJ-vaa" secondAttribute="centerY" id="83m-cT-thI"/>
                                                 <constraint firstAttribute="trailing" secondItem="Jzd-OT-fat" secondAttribute="trailing" constant="20" id="Brh-l6-CVh"/>
                                                 <constraint firstItem="vEj-mc-09i" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rR4-dJ-vaa" secondAttribute="topMargin" constant="10" id="DbY-UU-LID"/>
                                                 <constraint firstItem="Jzd-OT-fat" firstAttribute="top" secondItem="rR4-dJ-vaa" secondAttribute="top" constant="10" id="KtE-lq-vgR"/>
-                                                <constraint firstItem="k7p-tU-fRs" firstAttribute="top" secondItem="rR4-dJ-vaa" secondAttribute="topMargin" constant="10" id="L9W-lP-MAL"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="k7p-tU-fRs" secondAttribute="trailing" constant="10" id="Nsp-5Q-Ji9"/>
                                                 <constraint firstItem="kqv-iD-xlI" firstAttribute="top" secondItem="rR4-dJ-vaa" secondAttribute="topMargin" constant="10" id="QLd-vz-dXC"/>
                                                 <constraint firstItem="kqv-iD-xlI" firstAttribute="leading" secondItem="rR4-dJ-vaa" secondAttribute="leadingMargin" constant="10" id="QN6-vs-fbH"/>
                                                 <constraint firstItem="vEj-mc-09i" firstAttribute="centerX" secondItem="rR4-dJ-vaa" secondAttribute="centerX" id="R1S-tg-fuN"/>
+                                                <constraint firstItem="czg-wh-qJr" firstAttribute="top" secondItem="rR4-dJ-vaa" secondAttribute="topMargin" constant="10" id="Tvw-8Q-atM"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="vEj-mc-09i" secondAttribute="bottom" constant="10" id="e9D-UY-pE9"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="kqv-iD-xlI" secondAttribute="bottom" constant="10" id="eeF-Ln-dva"/>
                                                 <constraint firstItem="Jzd-OT-fat" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kqv-iD-xlI" secondAttribute="trailing" constant="10" id="gbw-zB-0IA"/>
-                                                <constraint firstItem="k7p-tU-fRs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kqv-iD-xlI" secondAttribute="trailing" constant="10" id="qA7-jp-Jri"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -223,8 +225,8 @@
                                         <connections>
                                             <outlet property="expandableImageView" destination="Jzd-OT-fat" id="Psq-f2-0sU"/>
                                             <outlet property="filterName" destination="kqv-iD-xlI" id="jzN-jZ-kAH"/>
-                                            <outlet property="filterSwitch" destination="k7p-tU-fRs" id="lia-FC-udr"/>
                                             <outlet property="seeAllLabel" destination="vEj-mc-09i" id="bFr-Xx-8er"/>
+                                            <outlet property="switchView" destination="czg-wh-qJr" id="hiH-jz-wLZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

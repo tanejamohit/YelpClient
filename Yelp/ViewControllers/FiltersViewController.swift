@@ -46,7 +46,6 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     super.viewDidLoad()
     tableView.dataSource = self
     tableView.delegate = self
-    
   }
   
   override func didReceiveMemoryWarning() {
@@ -85,7 +84,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
   }
   
   public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return (tableSectionDefinition[section]["name"] as! String=="") ? 30 : 80
+    return (tableSectionDefinition[section]["name"] as! String=="") ? 30 : 60
   }
   
   
@@ -116,6 +115,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     case FilterViewCellType.Normal:
       cell.filterName.text = (tableSectionDefinition[indexPath.section]["cells"] as! [String])[indexPath.row] as String
       cell.cellType = FilterViewCellType.Normal
+      cell.filterSwitch.on = filter.filterByDeal!
       
     case FilterViewCellType.ExpandableNotExpanded:
       // When the Expandable type is folded we want to show
@@ -127,9 +127,9 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     case FilterViewCellType.ExpandableExpanded:
       let selectedRow:Int = getSelectedRowForSection(section: indexPath.section)
       cell.filterName.text = ((tableSectionDefinition[indexPath.section]["cells"] as! [[String:Any]])[indexPath.row])["name"] as? String
-      cell.filterSwitch.isOn = (indexPath.row == selectedRow) ? true : false
       cell.cellType = FilterViewCellType.ExpandableExpanded
-      
+      cell.filterSwitch.on = (indexPath.row == selectedRow) ? true : false
+
     case FilterViewCellType.ShowAll:
       // If this section hasn't been expanded yet and the index is the last row
       // make this showAll cell
@@ -138,14 +138,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
       }
       else {
         cell.filterName.text = filter.categories[indexPath.row]["name"] as? String
-        cell.filterSwitch.isOn = (filter.categories[indexPath.row]["enabled"] as? Bool)!
         cell.cellType = FilterViewCellType.Normal
+        cell.filterSwitch.on = (filter.categories[indexPath.row]["enabled"] as? Bool)!
       }
       
     case FilterViewCellType.ShowAllExpanded:
       cell.filterName.text = filter.categories[indexPath.row]["name"] as? String
-      cell.filterSwitch.isOn = (filter.categories[indexPath.row]["enabled"] as? Bool)!
       cell.cellType = FilterViewCellType.Normal
+      cell.filterSwitch.on = (filter.categories[indexPath.row]["enabled"] as? Bool)!
     }
     
     cell.delegate = self
@@ -189,7 +189,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
       
     case 0:
       // We know the first section is simply filter by deal
-      filter.filterByDeal = filterViewCell.filterSwitch.isOn
+      filter.filterByDeal = filterViewCell.filterSwitch.on
       
     case 1:
       // Either we were expanded or one of the options was selected
@@ -199,7 +199,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Simply expand the section
         tableSectionDefinition[section]["sectionCellType"] = FilterViewCellType.ExpandableExpanded
       }
-      else  if (sectionCellType == FilterViewCellType.ExpandableExpanded && filterViewCell.filterSwitch.isOn) {
+      else  if (sectionCellType == FilterViewCellType.ExpandableExpanded) {
         filter.distance = (((tableSectionDefinition[section]["cells"] as! [[String:Any]])[indexPath.row])["value"] as? NSNumber)?.floatValue
         tableSectionDefinition[section]["sectionCellType"] = FilterViewCellType.ExpandableNotExpanded
       }
@@ -213,7 +213,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Simply expand the section
         tableSectionDefinition[section]["sectionCellType"] = FilterViewCellType.ExpandableExpanded
       }
-      else  if (sectionCellType == FilterViewCellType.ExpandableExpanded && filterViewCell.filterSwitch.isOn) {
+      else  if (sectionCellType == FilterViewCellType.ExpandableExpanded) {
         filter.sortType = ((tableSectionDefinition[section]["cells"] as! [[String:Any]])[indexPath.row])["value"] as? YelpSortMode
         tableSectionDefinition[section]["sectionCellType"] = FilterViewCellType.ExpandableNotExpanded
       }
@@ -225,7 +225,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.reloadSections(IndexSet (integer: 3), with: .automatic)
       }
       else if filterViewCell.cellType == FilterViewCellType.Normal {
-        filter.categories[indexPath.row]["enabled"] = filterViewCell.filterSwitch.isOn
+        filter.categories[indexPath.row]["enabled"] = filterViewCell.filterSwitch.on
       }
     default: ()
     }
