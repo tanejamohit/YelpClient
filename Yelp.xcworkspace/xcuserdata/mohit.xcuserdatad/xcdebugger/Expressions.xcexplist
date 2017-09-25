@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "FiltersViewController.FilterViewCell(filterViewCell:didChangeValue:):FiltersViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "((tableSectionDefinition[section][&quot;cells&quot;] as! [[String:Any]])[indexPath.row])[&quot;value&quot;] as! Float">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FiltersViewController.onCancelledButton(_:):FiltersViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FilterViewCell.tapGestureRecognizerTapped(_:):FilterViewCell.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
